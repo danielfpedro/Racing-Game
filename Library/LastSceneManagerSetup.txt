@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/Daniel/Scenes/Drift.unity
+  isLoaded: 1
+  isActive: 1
