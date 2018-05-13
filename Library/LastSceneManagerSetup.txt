@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Daniel/Scenes/Drift.unity
+- path: Assets/Daniel/Scenes/Monza.unity
   isLoaded: 1
   isActive: 1

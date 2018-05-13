@@ -26,10 +26,18 @@ public class SimpleGearBoxController : MonoBehaviour {
     public bool smokePlaying = false;
 
     [Header("Terrain Grip")]
+    [Range(1, 60f)]
+    public float sidewaysGrip = 100f;
     [Range(0.1f, 1f)]
     public float forwardGrip = 0.5f;
     public float currentForwardGrip = 0f;
     public float burnoutIntensity = 0f;
+
+    public VehicleController vehicleController;
+
+    public bool pushingForward = false;
+
+    public float groundedMultiplier = 0f;
 
 
     // Use this for initialization
@@ -40,7 +48,7 @@ public class SimpleGearBoxController : MonoBehaviour {
 
         foreach(ParticleSystem tyreSmoke in tyreSmokes)
         {
-            tyreSmoke.Pause();
+            // tyreSmoke.Pause();
         }
     }
 	
@@ -58,9 +66,13 @@ public class SimpleGearBoxController : MonoBehaviour {
         // Forward Grip
         currentForwardGrip = forwardGrip + (speed / 110f);
         currentForwardGrip = Mathf.Clamp(currentForwardGrip, 0.1f, 1f);
-        burnoutIntensity = desiredTorque - (desiredTorque * currentForwardGrip);
 
-        desiredTorque = Mathf.Clamp(desiredTorque - (burnoutIntensity * 1.2f), 0f, 10000f);
+        groundedMultiplier = (vehicleController.grounded == true) ? 1f : 0f;
+        burnoutIntensity = (desiredTorque - (desiredTorque * currentForwardGrip)) * groundedMultiplier;
+
+        desiredTorque = Mathf.Clamp((desiredTorque - (burnoutIntensity * 1.2f)) * groundedMultiplier, 0f, 10000f);
+
+        Debug.Log("Grounded Multiplier: " + groundedMultiplier);
 
         // Debug.Log("Previos " + PreviousGear().maxSpeed + " | CurrentMaxSpeed " + currentGear.maxSpeed + " | Speed" + speed);
         if (speed >= currentGear.maxSpeed)
@@ -72,26 +84,37 @@ public class SimpleGearBoxController : MonoBehaviour {
             GearDown();
         }
 
-        if (burnoutIntensity > 0 && !tyreSmokes[0].isPlaying)
-        {
-            foreach (ParticleSystem tyreSmoke in tyreSmokes)
-            {
-                tyreSmoke.Play();
-            }
-        } else {
-            foreach (ParticleSystem tyreSmoke in tyreSmokes)
-            {
-                tyreSmoke.Pause();
-            }
-        }
+        var emission = tyreSmokes[0].emission;
+        float emissionMultiplier = 20f;
+        emission.rateOverTime = (GetSidewaysFactorToEmission() * emissionMultiplier) * groundedMultiplier;
+
+        var emission1 = tyreSmokes[1].emission;
+        emission1.rateOverTime = (GetSidewaysFactorToEmission() * emissionMultiplier) * groundedMultiplier;
+
+        var emission2 = tyreSmokes[2].emission;
+        emission2.rateOverTime = ((burnoutIntensity + GetSidewaysFactorToEmission()) * emissionMultiplier) * groundedMultiplier;
+
+        var emission3 = tyreSmokes[3].emission;
+        emission3.rateOverTime = ((burnoutIntensity + GetSidewaysFactorToEmission()) * emissionMultiplier) * groundedMultiplier;
+
+        // Sideways controll
+        rb.AddForce((transform.right * -GetSidewaysFactor() * (sidewaysGrip * 1000f)) * groundedMultiplier);
+
+        // Moving Forward
         Move(desiredTorque);
+    }
+
+    public float GetSidewaysFactorToEmission()
+    {
+        return Mathf.Abs(GetSidewaysFactor() / 10f);
     }
 
     public float GetSpeed()
     {
         // return Mathf.RoundToInt(Mathf.Clamp(rb.velocity.magnitude * 3.6f, 0f, 10000f));
         Vector3 localVelocity = transform.InverseTransformDirection(rb.velocity);
-        return Mathf.RoundToInt(Mathf.Clamp(localVelocity.z * 1.4f, 0f, 1000000000f));
+        // return Mathf.RoundToInt(Mathf.Clamp(localVelocity.z * 1.4f, 0f, 1000000000f));
+        return Mathf.RoundToInt(Mathf.Abs(localVelocity.z * 1.4f));
     }
     public void GearUp()
     {
@@ -130,5 +153,9 @@ public class SimpleGearBoxController : MonoBehaviour {
     void Move(float torque)
     {
         rb.AddRelativeForce(Vector3.forward * torque, ForceMode.Acceleration);
+    }
+    public float GetSidewaysFactor()
+    {
+        return transform.InverseTransformDirection(rb.velocity).x;
     }
 }
