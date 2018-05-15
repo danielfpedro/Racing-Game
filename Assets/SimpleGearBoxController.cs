@@ -9,7 +9,7 @@ public class SGear
     public int maxSpeed;
 }
 public class SimpleGearBoxController : MonoBehaviour {
-
+    /*
     public Rigidbody rb;
 
     public SGear[] gears;
@@ -158,4 +158,5 @@ public class SimpleGearBoxController : MonoBehaviour {
     {
         return transform.InverseTransformDirection(rb.velocity).x;
     }
+    */
 }

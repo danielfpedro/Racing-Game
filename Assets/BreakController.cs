@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BreakController : MonoBehaviour {
-
+    /*
     private SimpleGearBoxController gearBox;
     public float breakAxis = 0f;
     private Rigidbody rb;
@@ -25,4 +25,5 @@ public class BreakController : MonoBehaviour {
 
         rb.AddRelativeForce(((Vector3.back * gearBox.speed)) * breakAxis, ForceMode.Acceleration);
     }
+    */  
 }

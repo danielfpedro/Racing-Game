@@ -291,8 +291,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\_CarController.cs" />
     <Compile Include="Assets\BreakController.cs" />
-    <Compile Include="Assets\CarController.cs" />
+    <Compile Include="Assets\Daniel\Scripts\Engine.cs" />
+    <Compile Include="Assets\Daniel\Scripts\GearBox.cs" />
+    <Compile Include="Assets\Daniel\Scripts\MyVehicleController.cs" />
     <Compile Include="Assets\GearBoxController.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\GetSetAttribute.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\MinAttribute.cs" />

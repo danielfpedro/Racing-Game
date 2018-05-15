@@ -4,12 +4,23 @@ using UnityEngine;
 
 public class VehicleController : MonoBehaviour {
 
+    [Header("Engine")]
+    public Engine engine;
+    public int currentRpm;
+
+    [Header("Gear Box")]
+    public GearBox gearBox;
+    private Gear currentGear;
+    private int currentGearIndex;
+
+    [HideInInspector]
+    public Rigidbody rb;
+
+    /*[Header("Outros")]
     public float drag = 1f;
     public Rigidbody rb;
     public float turnSpeed;
     public float grip;
-
-    public SimpleGearBoxController gearBox;
 
     public float burnoutIntensity;
     public AudioSource engineSound;
@@ -24,15 +35,16 @@ public class VehicleController : MonoBehaviour {
 
     public GameObject wheels;
 
+    public float steeringAngle;
+
     private float lastSteering;
-    // Use this for initialization
+    */
+    
     void Start () {
-        // rb.centerOfMass = cof.localPosition;
-
-        lastSteering = 0f;
-
+        rb = gameObject.AddComponent(typeof(Rigidbody)) as Rigidbody;
     }
 
+    /*
     void Update()
     {
         int groundedSum = 0;
@@ -48,11 +60,9 @@ public class VehicleController : MonoBehaviour {
 
         for (int i = 0; i < 2; i++)
         {
-            float steering = 30f * Input.GetAxis("Horizontal");
-            // wheels.transform.GetChild(i).localEulerAngles = Vector3.Slerp(wheels.transform.GetChild(i).localEulerAngles, new Vector3(90f, steering, 90f), Time.deltaTime * 5f);
+            float steering = steeringAngle * Input.GetAxis("Horizontal");
 
-            wheels.transform.GetChild(i).localRotation = Quaternion.Slerp(wheels.transform.GetChild(i).localRotation, Quaternion.Euler(0, steering, 90f), Time.deltaTime * 2f);
-            // wheels.transform.GetChild(i).rotation = Quaternion.Euler(0, steering, 90f);
+            wheels.transform.GetChild(i).localRotation = Quaternion.Slerp(wheels.transform.GetChild(i).localRotation, Quaternion.Euler(0, steering, 90f), Time.deltaTime * 4f);
         }
     }
 
@@ -65,10 +75,8 @@ public class VehicleController : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
     void FixedUpdate ()
     {
-        // float desiredTurnSpeed = Mathf.Clamp((gearBox.speed + Mathf.Abs(gearBox.GetSidewaysFactor())) * 2f, 0f, turnSpeed);
         desiredTurnSpeed = Mathf.Lerp(desiredTurnSpeed, turnSpeed, .5f);
 
         if (Input.GetButton("Fire2"))
@@ -87,14 +95,10 @@ public class VehicleController : MonoBehaviour {
         }
     }
 
-    public float GetSpeed()
-    {
-        return Mathf.Clamp(rb.velocity.magnitude * 3.6f, 0f, 10000f);
-    }
-
     public float GetVelocityX()
     {
         Vector3 velocity = transform.InverseTransformDirection(rb.velocity);
         return velocity.x;
     }
+    */
 }
