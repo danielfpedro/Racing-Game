@@ -6,7 +6,12 @@ using UnityEngine.UI;
 public class TelemetryCanvasController : MonoBehaviour {
 
     public GameObject target;
-    public Text forwardForce;
+
+    public Text engineHp;
+    public Text weight;
+    public Text forceOfTheGear;
+
+
     public Text backwardForce;
     public Text CarWeight;
     public Text pushingForward;
@@ -26,7 +31,13 @@ public class TelemetryCanvasController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        forwardForce.text = "Forward Force: " + target.GetComponent<MyVehicleController>().forwardForce;
+        weight.text = "Weight: " + target.GetComponent<MyVehicleController>().weight;
+        engineHp.text = "Engine HP: " + target.GetComponent<MyVehicleController>().engine.horsePower;
+        forceOfTheGear.text = "Force of the Gear: " + target.GetComponent<MyVehicleController>().forceOfTheGear;
+        burnoutIntensity.text = "Burnout Intensity: " + target.GetComponent<MyVehicleController>().burnoutIntensity;
+        forwardGrip.text = "Forward Grip: " + target.GetComponent<MyVehicleController>().forwardGrip;
+        currentForwardGrip.text = "Current Forward Grip: " + target.GetComponent<MyVehicleController>().currentForwardGrip;
+
         backwardForce.text = "Backward Force: " + target.GetComponent<MyVehicleController>().backwardForce;
         CarWeight.text = "Vehicle Weight: " + target.GetComponent<MyVehicleController>().rb.mass;
         sidewaysFactor.text = "Sideways Factor: " + target.GetComponent<MyVehicleController>().GetSidewaysFactor();
@@ -34,10 +45,7 @@ public class TelemetryCanvasController : MonoBehaviour {
         wheelsGroundedCount.text = "Wheels Grounded Count: " + target.GetComponent<MyVehicleController>().wheelsGroundedCount;
         onAir.text = "On Air: " + target.GetComponent<MyVehicleController>().IsOnAir();
         /*
-        
-        forwardGrip.text = "Forward Grip: " + target.GetComponent<SimpleGearBoxController>().forwardGrip;
         currentForwardGrip.text = "Current Forward Grip: " + target.GetComponent<SimpleGearBoxController>().currentForwardGrip;
-        burnoutIntensity.text = "Burnout Intensity: " + target.GetComponent<SimpleGearBoxController>().burnoutIntensity;
         grounded.text = "Grounded: " + target.GetComponent<VehicleController>().grounded;
         
         pushingForward.text = "Pushing Forward: " + target.GetComponent<SimpleGearBoxController>().pushingForward;*/

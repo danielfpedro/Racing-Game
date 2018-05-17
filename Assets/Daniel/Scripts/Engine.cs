@@ -7,9 +7,10 @@ public class Engine : ScriptableObject {
 
     public int horsePower;
     public int rpmLimit;
+    public AudioClip sound;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
