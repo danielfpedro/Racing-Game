@@ -233,8 +233,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1900705058940354}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.77, y: -0.142, z: 1.11}
-  m_LocalScale: {x: 0.79501265, y: 0.22323443, z: 0.79501265}
+  m_LocalPosition: {x: -0.7230015, y: -0.142, z: 1.11}
+  m_LocalScale: {x: 0.79501265, y: 0.116847105, z: 0.79501265}
   m_Children:
   - {fileID: 4960447448703070}
   m_Father: {fileID: 4009243911073664}
@@ -260,8 +260,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1964731605450326}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.77, y: -0.14200002, z: 1.1100006}
-  m_LocalScale: {x: 0.7950127, y: 0.2232344, z: 0.7950127}
+  m_LocalPosition: {x: 0.718, y: -0.14200002, z: 1.1100006}
+  m_LocalScale: {x: 0.7950127, y: 0.094874606, z: 0.7950127}
   m_Children:
   - {fileID: 4289143808718496}
   m_Father: {fileID: 4009243911073664}
@@ -274,8 +274,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1391663246271266}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.687, y: -0.14200002, z: -1.039}
-  m_LocalScale: {x: 0.7873558, y: 0.3163062, z: 0.7873554}
+  m_LocalPosition: {x: -0.761, y: -0.14200002, z: -1.039}
+  m_LocalScale: {x: 0.7873558, y: 0.08049971, z: 0.7873554}
   m_Children:
   - {fileID: 4969132960278564}
   m_Father: {fileID: 4009243911073664}
@@ -301,7 +301,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1460617195776136}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 161.00401, y: 0.69, z: 117.56551}
+  m_LocalPosition: {x: 168.8, y: 0.69, z: 256.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4737069660805704}
@@ -317,8 +317,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1282364421210634}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.687, y: -0.14200002, z: -1.0390015}
-  m_LocalScale: {x: 0.78735584, y: 0.31630617, z: 0.78735536}
+  m_LocalPosition: {x: 0.7559966, y: -0.14200002, z: -1.0390015}
+  m_LocalScale: {x: 0.78735584, y: 0.09657298, z: 0.78735536}
   m_Children:
   - {fileID: 4615674558208266}
   m_Father: {fileID: 4009243911073664}
@@ -345,7 +345,7 @@ Transform:
   m_GameObject: {fileID: 1590482365868836}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: -0, y: 0.279, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 121.255806, y: 100, z: 100}
   m_Children: []
   m_Father: {fileID: 4450709918275032}
   m_RootOrder: 0
@@ -647,32 +647,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96486bbd593e0d347a6c2b30bf01dc66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
   engine: {fileID: 11400000, guid: ae7f9f0b308ac074299a7a31e66c0b56, type: 2}
   forceOfTheGear: 0
+  enginePitch: 0
+  engineSoundSource: {fileID: 0}
   currentRpm: 0
   gearBox: {fileID: 11400000, guid: 29f1a4be771ed254a873f06df250ca13, type: 2}
-  weight: 1500
   steeringAngle: 40
   turnSpeed: 2
   desiredTurn: 0
-  aerodinamics: 1
-  sidewaysGrip: 2.5
   forwardGrip: 0.4
   currentForwardGrip: 0
   burnoutIntensity: 0
+  weight: 1500
+  aerodinamics: 10
+  sidewaysGrip: 2.39
   backwardForce: 0
   sidewaysCounterForce: 0
-  maxSpeed: 220
   wheels: {fileID: 4009243911073664}
   wheelsGroundedCount: 0
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1024
   smokeRef: {fileID: 100000, guid: 98c58c8dd46640c49bb5f557afafea7c, type: 2}
-  smokes: []
-  rb: {fileID: 0}
   throttle: 0
   forwardForce: 0
+  wheelsOnGroundMultiplier: 0
+  steeringTorque: 4
 --- !u!136 &136067989615648562
 CapsuleCollider:
   m_ObjectHideFlags: 1

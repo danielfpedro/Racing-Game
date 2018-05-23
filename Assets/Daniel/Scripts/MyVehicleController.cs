@@ -64,6 +64,9 @@ public class MyVehicleController : MonoBehaviour {
     // result 0 so any forward force times 0 will be 0 wich will not apply any force
     public float wheelsOnGroundMultiplier;
 
+    [Range(0, 100)]
+    public float steeringTorque;
+
     void Start()
     {
         rb = gameObject.AddComponent(typeof(Rigidbody)) as Rigidbody;
@@ -87,7 +90,7 @@ public class MyVehicleController : MonoBehaviour {
         engineSoundSource = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
         engineSoundSource.loop = true;
         engineSoundSource.clip = engine.sound;
-        engineSoundSource.Play();
+        // engineSoundSource.Play();
     }
 
 
@@ -97,12 +100,10 @@ public class MyVehicleController : MonoBehaviour {
 	}
     private void FixedUpdate()
     {
+        throttle = Input.GetAxis("Throttle");
         wheelsOnGroundMultiplier = wheelsGroundedCount / wheelsCount;
-        // enginePitch = 1 - (GetCurrentGear().maxSpeedToChange - GetSpeed()) / (GetCurrentGear().maxSpeedToChange - ((currentGearIndex == 0) ? 0 : (PreviousGear().maxSpeedToChange + 1)));
 
         engineSoundSource.pitch = (GetSpeed() / 240) + (((1 - currentForwardGrip) * 1.5f) * throttle) + .6f;
-
-        throttle = Input.GetAxis("Throttle");
 
         if (GetSpeed() >= GetCurrentGear().maxSpeedToChange)
         {
@@ -123,25 +124,14 @@ public class MyVehicleController : MonoBehaviour {
         {
             rb.AddRelativeForce((Vector3.back * GetSpeed()) * breakAxis, ForceMode.Acceleration);
         }
-        
+
 
         /*STEERING*/
-        
-
-        if (GetSpeed() > 0 && IsGrounded())
-        {
-
-            desiredTurn = turnSpeed;
-
-            if (Input.GetButton("HandBreak"))
-            {
-                desiredTurn = turnSpeed * 2f;
-            }
-            transform.Rotate(Vector3.up, desiredTurn * Input.GetAxis("Horizontal"), Space.World);
-        }
+        Steering();
 
         /*Aerodinamics*/
-        PullBackward();
+        PushBackward();
+
         // Multiply sideways grip by 1000 so we can put a small number con sidewaysgruip setup
         sidewaysCounterForce = -GetSidewaysFactor() * (sidewaysGrip * 1000f);
         rb.AddForce(transform.right * sidewaysCounterForce);
@@ -195,6 +185,26 @@ public class MyVehicleController : MonoBehaviour {
         }
     }
 
+    public void Steering()
+    {
+        if (GetSpeed() > 0 && IsGrounded())
+        {
+
+            desiredTurn = turnSpeed;
+
+            if (Input.GetButton("HandBreak"))
+            {
+                desiredTurn = turnSpeed * 1.5f;
+            }
+
+            transform.Rotate(Vector3.up, desiredTurn * Input.GetAxis("Horizontal"), Space.World);
+
+            // rb.to
+            // float piri = steeringTorque * Input.GetAxis("Horizontal");
+            // rb.AddRelativeTorque(Vector3.up * piri, ForceMode.Acceleration);
+        }
+    }
+
     public bool IsGrounded()
     {
         return (wheelsGroundedCount == wheels.childCount);
@@ -209,6 +219,15 @@ public class MyVehicleController : MonoBehaviour {
     {
         rb.AddRelativeForce(Vector3.forward * GetForwardForce(), ForceMode.Acceleration);
 
+    }
+    private void PushBackward()
+    {
+        backwardForce = 0f;
+        if (forceOfTheGear <= 0 && IsGrounded())
+        {
+            backwardForce = GetSpeed() * .2f;
+            rb.AddRelativeForce(Vector3.back * backwardForce, ForceMode.Acceleration);
+        } 
     }
     private float GetForwardForce()
     {
@@ -228,14 +247,7 @@ public class MyVehicleController : MonoBehaviour {
         }
         
     }
-    private void PullBackward()
-    {
-        if (throttle == 0 && IsGrounded())
-        {
-            backwardForce = GetSpeed() / 5f;
-            rb.AddRelativeForce(Vector3.back * backwardForce, ForceMode.Acceleration);
-        }
-    }
+
     private float GetTorqueFromPorcentage()
     {
         return (engine.horsePower * GetCurrentGear().torquePorcentage / 100f);

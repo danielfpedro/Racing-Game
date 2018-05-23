@@ -11,6 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5923a583e8e2814b894fa6ef4062c5a, type: 3}
   m_Name: Mitsubishi01
   m_EditorClassIdentifier: 
-  horsePower: 300
+  horsePower: 500
   rpmLimit: 8000
   sound: {fileID: 8300000, guid: 03e3bd08a6e70684dbe299a3e185fdd2, type: 3}

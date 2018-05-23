@@ -39,7 +39,7 @@ public class TelemetryCanvasController : MonoBehaviour {
         currentForwardGrip.text = "Current Forward Grip: " + target.GetComponent<MyVehicleController>().currentForwardGrip;
 
         backwardForce.text = "Backward Force: " + target.GetComponent<MyVehicleController>().backwardForce;
-        CarWeight.text = "Vehicle Weight: " + target.GetComponent<MyVehicleController>().rb.mass;
+
         sidewaysFactor.text = "Sideways Factor: " + target.GetComponent<MyVehicleController>().GetSidewaysFactor();
         sidewaysCounterForce.text = "Sideways Counter Force: " + target.GetComponent<MyVehicleController>().sidewaysCounterForce;
         wheelsGroundedCount.text = "Wheels Grounded Count: " + target.GetComponent<MyVehicleController>().wheelsGroundedCount;
